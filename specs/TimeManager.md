@@ -2,28 +2,144 @@
 title: TimeManager
 system: Recursive–Generative Organizational Body
 type: subsystem
-tags: [time, scheduling]
+category: temporal
+tags: [time, scheduling, cycles, events]
+dependencies: []
 ---
 
-# Recursive–Generative Organizational Body: TimeManager
+# TimeManager
 
-## Name
-The **TimeManager** is a subsystem of the Recursive–Generative Organizational Body. It governs time functions and recursive scheduling.
+The **TimeManager** governs time functions, recursive scheduling, cycle tracking, and event triggers within the system.
 
-## Input
-Accepts timestamps, schedules, cycle definitions, and symbolic time markers.
+## Overview
 
-## Function
-Manages time functions and cycle tracking. It ensures that recursive events occur in ordered sequence and that time‑dependent processes are synchronized.
+| Property | Value |
+|----------|-------|
+| Category | Temporal & Spatial |
+| Module | `autogenrec.subsystems.temporal.time_manager` |
+| Dependencies | None |
+
+## Domain Models
+
+### Enums
+
+```python
+class CycleType(Enum):
+    DAILY = auto()         # Daily cycle
+    WEEKLY = auto()        # Weekly cycle
+    MONTHLY = auto()       # Monthly cycle
+    SEASONAL = auto()      # Seasonal (quarterly)
+    ANNUAL = auto()        # Annual cycle
+    CUSTOM = auto()        # Custom interval
+
+class EventStatus(Enum):
+    SCHEDULED = auto()     # Waiting to fire
+    TRIGGERED = auto()     # Has been triggered
+    CANCELLED = auto()     # Cancelled before firing
+    EXPIRED = auto()       # Past due, not triggered
+```
+
+### Core Models
+
+- **ScheduledEvent**: Event with trigger time, callback, recurrence
+- **Cycle**: Recurring time cycle with period and phase
+- **TimePoint**: Specific moment with context
 
 ## Process Loop
-1. **Register**: Receive events with associated times or cycles.
-2. **Assign**: Map events to appropriate cycles or schedules.
-3. **Monitor**: Track event timing and trigger events as needed.
-4. **Adjust**: Modify schedules to account for drift, recursion, or system changes.
 
-## Interpretation
-Time is interpreted as a controlled recursive variable. The manager provides stability and coherence in symbolic timing.
+1. **Intake**: Receive scheduling requests, cycle definitions
+2. **Process**: Calculate trigger times, manage cycle phases
+3. **Evaluate**: Check for due events, validate schedules
+4. **Integrate**: Fire events, advance cycles, emit notifications
 
-## Components
-Includes a recursive cycle tracker and scheduler to orchestrate time‑based events.
+## Public API
+
+### Event Scheduling
+
+```python
+from autogenrec.subsystems.temporal.time_manager import (
+    TimeManager, CycleType
+)
+from datetime import datetime, timedelta, UTC
+
+time_mgr = TimeManager()
+
+# Schedule a one-time event
+event = time_mgr.schedule_event(
+    name="project_deadline",
+    trigger_at=datetime.now(UTC) + timedelta(days=7),
+    data={"project_id": "proj_001"},
+)
+
+# Schedule recurring event
+daily_event = time_mgr.schedule_recurring(
+    name="daily_backup",
+    cycle_type=CycleType.DAILY,
+    start_at=datetime.now(UTC),
+    data={"action": "backup"},
+)
+```
+
+### Cycle Management
+
+```python
+# Create a cycle
+cycle = time_mgr.create_cycle(
+    name="quarterly_review",
+    cycle_type=CycleType.SEASONAL,
+    start_at=datetime.now(UTC),
+)
+
+# Advance cycle phase
+time_mgr.advance_cycle(cycle.id)
+
+# Get current phase
+phase = time_mgr.get_cycle_phase(cycle.id)
+```
+
+### Event Management
+
+```python
+# Get pending events
+pending = time_mgr.get_pending_events()
+
+# Cancel event
+time_mgr.cancel_event(event.id)
+
+# Manually trigger event
+time_mgr.trigger_event(event.id)
+
+# Check and fire due events
+fired = time_mgr.process_due_events()
+```
+
+### Statistics
+
+```python
+stats = time_mgr.get_stats()
+# TimeStats with:
+#   total_events, pending_events, triggered_events
+#   total_cycles, active_cycles
+```
+
+## Cycle Types
+
+| Type | Period | Use Case |
+|------|--------|----------|
+| DAILY | 24 hours | Daily tasks |
+| WEEKLY | 7 days | Weekly reports |
+| MONTHLY | ~30 days | Monthly billing |
+| SEASONAL | ~90 days | Quarterly reviews |
+| ANNUAL | ~365 days | Annual planning |
+| CUSTOM | User-defined | Any interval |
+
+## Integration
+
+The TimeManager provides scheduling for:
+- **EvolutionScheduler**: Timing mutation cycles
+- **AcademiaManager**: Research deadlines
+- **All subsystems**: Event-driven coordination
+
+## Example
+
+See `examples/recursive_process_demo.py` for time-based cycle management.

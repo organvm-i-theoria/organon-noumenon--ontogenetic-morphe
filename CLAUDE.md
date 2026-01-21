@@ -12,77 +12,158 @@ The name reflects the architecture:
 - **Ontogenetic** (being-developing) → Recursive 4-phase process loops
 - **Morphē** (form) → Emergent patterns, schemas, structures
 
+## Architecture
+
+### 4-Phase Process Loop
+
+Every subsystem follows the recursive 4-phase pattern:
+
+```
+┌─────────┐    ┌─────────┐    ┌──────────┐    ┌───────────┐
+│ INTAKE  │───►│ PROCESS │───►│ EVALUATE │───►│ INTEGRATE │
+└─────────┘    └─────────┘    └──────────┘    └─────┬─────┘
+     ▲                                              │
+     │              feedback loop                   │
+     └──────────────────────────────────────────────┘
+```
+
+### Subsystem Dependency Graph
+
+```
+                    ┌─────────────────┐
+                    │ AnthologyManager│ (meta-system)
+                    └────────┬────────┘
+                             │ registers all
+    ┌────────────────────────┼────────────────────────┐
+    │                        │                        │
+    ▼                        ▼                        ▼
+┌───────────┐        ┌───────────────┐        ┌─────────────┐
+│ Identity  │        │ Core Process  │        │   Value     │
+├───────────┤        ├───────────────┤        ├─────────────┤
+│ Mask      │        │ Symbolic      │        │ Exchange    │
+│ Generator │        │ Interpreter   │───────►│ Manager     │
+│     │     │        │      │        │        │      │      │
+│     ▼     │        │      ▼        │        │      ▼      │
+│ Audience  │        │ Rule          │        │ Blockchain  │
+│ Classifier│        │ Compiler      │───────►│ Simulator   │
+└───────────┘        │      │        │        │      │      │
+                     │      ▼        │        │      ▼      │
+                     │ Code          │        │ Process     │
+                     │ Generator     │        │ Monetizer   │
+                     └───────────────┘        └─────────────┘
+
+┌───────────┐        ┌───────────────┐        ┌─────────────┐
+│ Temporal  │        │    Data       │        │  Routing    │
+├───────────┤        ├───────────────┤        ├─────────────┤
+│ Time      │        │ Reference     │        │ Node        │
+│ Manager   │───────►│ Manager       │        │ Router      │
+│     │     │        │      │        │        │      │      │
+│     ▼     │        │      ▼        │        │      ▼      │
+│ Evolution │        │ Archive       │        │ Signal      │
+│ Scheduler │        │ Manager       │        │ Threshold   │
+│     │     │        │      │        │        │ Guard       │
+│     ▼     │        │      ▼        │        └─────────────┘
+│ Location  │        │ Echo          │
+│ Resolver  │        │ Handler       │
+└───────────┘        └───────────────┘
+
+┌───────────────┐    ┌───────────────┐
+│ Transformation│    │   Conflict    │
+├───────────────┤    ├───────────────┤
+│ Process       │    │ Conflict      │
+│ Converter     │    │ Resolver      │
+│      │        │    │      │        │
+│      ▼        │    │      ▼        │
+│ Consumption   │    │ Arbitration   │
+│ Manager       │    │ Engine        │
+└───────────────┘    └───────────────┘
+
+┌───────────────┐
+│   Academic    │
+├───────────────┤
+│ Academia      │
+│ Manager       │
+└───────────────┘
+```
+
 ## Repository Structure
 
 ```
-├── specs/              # Markdown architectural specifications
+├── specs/              # Markdown architectural specifications (22 files)
 ├── src/autogenrec/     # Python implementation
 │   ├── core/           # ProcessLoop, Subsystem, SymbolicValue, Signal, Registry
 │   ├── bus/            # MessageBus with wildcard topic matching
 │   ├── subsystems/     # 22 subsystems organized by category
+│   │   ├── meta/           # AnthologyManager
+│   │   ├── core_processing/# SymbolicInterpreter, RuleCompiler, CodeGenerator
+│   │   ├── conflict/       # ConflictResolver, ArbitrationEngine
+│   │   ├── data/           # ReferenceManager, ArchiveManager, EchoHandler
+│   │   ├── routing/        # NodeRouter, SignalThresholdGuard
+│   │   ├── value/          # ValueExchangeManager, BlockchainSimulator, ProcessMonetizer
+│   │   ├── temporal/       # TimeManager, EvolutionScheduler, LocationResolver
+│   │   ├── identity/       # MaskGenerator, AudienceClassifier
+│   │   ├── transformation/ # ProcessConverter, ConsumptionManager
+│   │   └── academic/       # AcademiaManager
 │   ├── storage/        # Persistence layer (stub)
 │   └── runtime/        # Orchestrator
 ├── tests/              # pytest tests
-└── examples/           # Usage examples
+└── examples/           # Usage examples (5 demos)
 ```
-
-### Meta-System
-
-**AnthologyManager** — The central registry and index for all subsystems. It maintains the unified process registry and serves as the access layer for the entire architecture.
-
-### Subsystem Categories
-
-**Core Processing:**
-- SymbolicInterpreter — Interprets symbolic inputs (dreams, narratives, constructed languages)
-- RuleCompiler — Compiles and validates symbolic rules
-- CodeGenerator — Transforms symbolic structures into executable instructions
-
-**Conflict & Resolution:**
-- ConflictResolver — Detects and resolves conflicting inputs
-- ArbitrationEngine — Structured dispute resolution
-
-**Data & Records:**
-- ReferenceManager — Maintains canonical references
-- ArchiveManager — Preserves and retrieves records
-- EchoHandler — Processes and replays signals
-
-**Routing & Communication:**
-- NodeRouter — Manages connections between symbolic nodes
-- SignalThresholdGuard — Validates signals across analog/digital boundaries
-
-**Value & Exchange:**
-- ValueExchangeManager — Symbolic trade and value exchange
-- BlockchainSimulator — Distributed ledger logic for symbolic economies
-- ProcessMonetizer — Converts processes into monetizable outputs
-
-**Temporal & Spatial:**
-- TimeManager — Governs time functions and recursive scheduling
-- LocationResolver — Resolves spatial references
-- EvolutionScheduler — Manages growth and mutation cycles
-
-**Identity & Classification:**
-- MaskGenerator — Creates symbolic identity masks
-- AudienceClassifier — Categorizes users into segments
-
-**Transformation:**
-- ProcessConverter — Transforms workflows into derivative outputs
-- ConsumptionManager — Monitors and manages consumption events
-
-**Academic:**
-- AcademiaManager — Manages learning, research, and publication cycles
 
 ## Working with the Codebase
 
+### Implementation Pattern
+
+Each subsystem follows this structure:
+
+```python
+# 1. Domain Models (frozen Pydantic)
+class MyModel(BaseModel):
+    model_config = ConfigDict(frozen=True, extra="forbid")
+    id: str = Field(default_factory=lambda: str(ULID()))
+    # ... fields
+
+# 2. Enums for type safety
+class MyStatus(Enum):
+    ACTIVE = auto()
+    INACTIVE = auto()
+
+# 3. Subsystem class
+class MySubsystem(Subsystem):
+    def __init__(self):
+        super().__init__(SubsystemMetadata(...))
+        self._state: dict[str, MyModel] = {}
+    
+    # 4. Four-phase implementation
+    async def intake(self, input: SymbolicInput, ctx: ProcessContext) -> Any:
+        # Validate, filter, log
+        pass
+    
+    async def process(self, data: Any, ctx: ProcessContext) -> Any:
+        # Core transformation logic
+        pass
+    
+    async def evaluate(self, result: Any, ctx: ProcessContext) -> tuple[Any, bool]:
+        # Synthesize output, decide continuation
+        pass
+    
+    async def integrate(self, output: Any, ctx: ProcessContext) -> SymbolicOutput:
+        # Emit events, prepare feedback
+        pass
+```
+
 ### Adding/Modifying Subsystems
 
-1. **Extend the Subsystem base class** — Implement the 4 abstract methods: `intake`, `process`, `evaluate`, `integrate`
+1. **Extend the Subsystem base class** — Implement the 4 abstract methods
 2. **Define SubsystemMetadata** — Include name, type, tags, input/output types
-3. **Register in orchestrator** — Add factory to `create_default_orchestrator()`
-4. **Update spec file** — Keep specs in sync with implementation
+3. **Create domain models** — Use frozen Pydantic BaseModel
+4. **Register in orchestrator** — Add factory to `create_default_orchestrator()`
+5. **Update spec file** — Keep specs in sync with implementation
+6. **Add tests** — Unit tests for all public methods
 
 ### Core Abstractions
 
-- **ProcessLoop** — 4-phase pattern with lifecycle hooks
+- **ProcessLoop** — 4-phase pattern (intake, process, evaluate, integrate)
 - **Subsystem** — ProcessLoop + messaging + lifecycle management
 - **SymbolicValue** — Typed symbolic data with provenance tracking
 - **Signal/Echo** — Inter-subsystem communication with threshold validation
@@ -94,14 +175,25 @@ The name reflects the architecture:
 # Install
 pip install -e ".[dev]"
 
-# Run
+# Run orchestrator
 python -m autogenrec.runtime
 
-# Test
+# Run tests
 pytest tests/
+
+# Run specific test file
+pytest tests/test_academia_manager.py -v
+
+# Run with coverage
+pytest tests/ --cov=src/autogenrec
 
 # Type check
 mypy src/
+
+# Run examples
+python examples/full_system_demo.py
+python examples/value_exchange_demo.py
+python examples/recursive_process_demo.py
 ```
 
 ## Architecture Principles
@@ -110,3 +202,16 @@ mypy src/
 - **Generative**: New patterns emerge from mutation and transformation
 - **Symbolic**: All data is treated as symbolic, carrying meaning beyond raw values
 - **Process-oriented**: Everything is modeled as a process with inputs, transformations, and outputs
+- **Immutable**: Domain models use frozen dataclasses for thread safety
+
+## Examples
+
+The `examples/` directory contains working demonstrations:
+
+| Example | Description |
+|---------|-------------|
+| `basic_narrative_interpretation.py` | Identity masks and audience classification |
+| `value_exchange_demo.py` | Value economy with blockchain recording |
+| `conflict_resolution_demo.py` | Academic research lifecycle |
+| `recursive_process_demo.py` | Evolution cycles with mutations |
+| `full_system_demo.py` | Complete research-to-revenue pipeline |

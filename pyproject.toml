@@ -1,0 +1,66 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "organon-noumenon--ontogenetic-morphe"
+version = "0.1.0"
+description = "Organon-Noumenon: An instrument for symbolic essences producing ontogenetic forms"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+authors = [{ name = "organon-noumenon--ontogenetic-morphe Contributors" }]
+keywords = ["symbolic", "recursive", "generative", "ontogenesis", "organon", "noumenon", "morphe"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Typing :: Typed",
+]
+dependencies = [
+    "anyio>=4.0",
+    "pydantic>=2.0",
+    "structlog>=24.0",
+    "python-ulid>=2.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "mypy>=1.8",
+    "pytest>=8.0",
+    "pytest-asyncio>=0.23",
+    "ruff>=0.2",
+    "hypothesis>=6.0",
+]
+
+[project.scripts]
+autogenrec = "autogenrec.runtime.__main__:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/autogenrec"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+warn_return_any = true
+warn_unused_configs = true
+plugins = ["pydantic.mypy"]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W", "UP", "B", "C4", "SIM", "TCH"]
+ignore = ["E501"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["autogenrec"]

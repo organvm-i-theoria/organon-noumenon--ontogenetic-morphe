@@ -2,9 +2,89 @@
 
 *An instrument for symbolic essences, producing developmental forms.*
 
-## Overview
+---
 
-**organon-noumenon--ontogenetic-morphe** implements a symbolic processing system with 22 interconnected subsystems following the recursive-generative architectural pattern.
+## The Problem
+
+Traditional data processing systems treat information as **static, context-free values**. A number is just a number. A string is just a string. This approach fails when dealing with:
+
+- **Symbolic content** — dreams, narratives, constructed languages — where meaning transcends raw data
+- **Evolving requirements** — where outputs should feed back as inputs, refining understanding over time
+- **Complex coordination** — where multiple specialized processors must work together coherently
+- **Value and identity** — where tracking provenance, ownership, and transformation history matters
+
+The result? Brittle pipelines that can't adapt, monolithic processors that can't specialize, and data that loses its meaning the moment it enters your system.
+
+---
+
+## The Approach
+
+**organon-noumenon--ontogenetic-morphe** reimagines data processing as a **living, developmental system**:
+
+```
+┌─────────┐     ┌─────────┐     ┌──────────┐     ┌───────────┐
+│ INTAKE  │ ──► │ PROCESS │ ──► │ EVALUATE │ ──► │ INTEGRATE │
+└─────────┘     └─────────┘     └──────────┘     └─────┬─────┘
+     ▲                                                 │
+     │                  feedback loop                  │
+     └─────────────────────────────────────────────────┘
+```
+
+Every subsystem follows this **4-phase recursive pattern**:
+
+1. **Intake** — Receive and validate symbolic inputs
+2. **Process** — Transform with domain-specific logic  
+3. **Evaluate** — Assess results, decide if more cycles needed
+4. **Integrate** — Emit outputs that can feed back as new inputs
+
+This isn't just a pipeline — it's **ontogenesis**: the developmental process by which forms emerge from symbolic essences.
+
+---
+
+## The Outcome
+
+A **22-subsystem architecture** where specialized processors coordinate through a unified message bus:
+
+| Category | Subsystems | Capabilities |
+|----------|------------|--------------|
+| **Core Processing** | SymbolicInterpreter, RuleCompiler, CodeGenerator | Parse narratives, compile rules, generate executable code |
+| **Value Economy** | ValueExchangeManager, BlockchainSimulator, ProcessMonetizer | Multi-currency accounts, immutable ledgers, revenue models |
+| **Identity** | MaskGenerator, AudienceClassifier | Pseudonymous identities, audience segmentation |
+| **Temporal** | TimeManager, EvolutionScheduler, LocationResolver | Scheduling, mutation cycles, spatial references |
+| **Data** | ReferenceManager, ArchiveManager, EchoHandler | Canonical references, retention policies, signal replay |
+| **Conflict** | ConflictResolver, ArbitrationEngine | Detect conflicts, render verdicts |
+| **Routing** | NodeRouter, SignalThresholdGuard | Route signals, validate thresholds |
+| **Transformation** | ProcessConverter, ConsumptionManager | Format conversion, usage quotas |
+| **Academic** | AcademiaManager | Research projects, publications, citations |
+| **Meta** | AnthologyManager | Registry of all subsystems and processes |
+
+**Real-world example**: The `full_system_demo.py` shows a complete **research-to-revenue pipeline** where:
+- A researcher creates work under a pseudonymous identity
+- Research is published and monetized as an API product
+- Users across access tiers consume the product
+- Revenue flows back to the researcher
+- All transactions are recorded on an immutable ledger
+
+---
+
+## Quick Start
+
+```bash
+# Clone and install
+git clone https://github.com/yourorg/organon-noumenon--ontogenetic-morphe.git
+cd organon-noumenon--ontogenetic-morphe
+pip install -e ".[dev]"
+
+# Run the full system demo
+python examples/full_system_demo.py
+
+# Or start the orchestrator
+python -m autogenrec.runtime
+```
+
+---
+
+## The Name
 
 | Term | Meaning | Maps To |
 |------|---------|---------|
@@ -13,26 +93,7 @@
 | **Ontogenetic** | Being-developing | Recursive 4-phase loops with feedback |
 | **Morphē** | Form | Emergent patterns, schemas, structures |
 
-## Installation
-
-```bash
-# Clone the repository
-git clone https://github.com/yourorg/organon-noumenon--ontogenetic-morphe.git
-cd organon-noumenon--ontogenetic-morphe
-
-# Install with development dependencies
-pip install -e ".[dev]"
-```
-
-## Quick Start
-
-```bash
-# Run the orchestrator
-python -m autogenrec.runtime
-
-# Try an example
-python examples/full_system_demo.py
-```
+---
 
 ## Project Structure
 
@@ -55,90 +116,65 @@ src/autogenrec/
 └── runtime/        # Orchestrator with graceful start/stop
 ```
 
-## Architecture
-
-The system follows a 4-phase recursive process loop:
-
-```
-Intake → Process → Evaluate → Integrate
-   ↑                              │
-   └──────── feedback ────────────┘
-```
-
-Each subsystem processes symbolic inputs (noumena) through this developmental cycle (ontogenesis), producing emergent forms (morphē) — all orchestrated by the system framework (organon).
+---
 
 ## Examples
 
-| Example | Description |
-|---------|-------------|
+| Example | What It Demonstrates |
+|---------|----------------------|
+| `full_system_demo.py` | Complete research-to-revenue pipeline across 10 subsystems |
+| `value_exchange_demo.py` | Multi-currency accounts, transfers, blockchain recording |
+| `recursive_process_demo.py` | Evolution cycles with mutations and fitness tracking |
+| `conflict_resolution_demo.py` | Academic research lifecycle with conflict detection |
 | `basic_narrative_interpretation.py` | Identity masks and audience classification |
-| `value_exchange_demo.py` | Value economy with blockchain recording |
-| `conflict_resolution_demo.py` | Academic research lifecycle |
-| `recursive_process_demo.py` | Evolution cycles with mutations |
-| `full_system_demo.py` | Complete research-to-revenue pipeline |
 
-Run any example:
 ```bash
 python examples/full_system_demo.py
 ```
 
-## Testing
+---
+
+## Testing & Verification
 
 ```bash
-# Run all tests
+# Run all 370 tests
 pytest tests/
 
-# Run with verbose output
-pytest tests/ -v
-
-# Run specific test file
-pytest tests/test_academia_manager.py
-
-# Run with coverage report
-pytest tests/ --cov=src/autogenrec --cov-report=html
-
-# Run integration tests only
-pytest tests/test_integration.py -v
-```
-
-## Type Checking
-
-```bash
+# Type checking (47 source files)
 mypy src/
+
+# Run with coverage
+pytest tests/ --cov=src/autogenrec --cov-report=html
 ```
+
+---
 
 ## Specifications
 
-Each subsystem has a corresponding specification in `specs/`:
-
-- Consistent 4-phase process loop (Intake → Process → Evaluate → Integrate)
+Each subsystem has a detailed spec in `specs/` covering:
 - Domain models and enums
-- Public API documentation
-- Usage examples
+- 4-phase process loop implementation
+- Public API with examples
+- Integration patterns
+
+---
 
 ## Contributing
 
 ### Development Setup
 
-1. Fork the repository
-2. Clone your fork
-3. Install dev dependencies: `pip install -e ".[dev]"`
-4. Create a feature branch: `git checkout -b feature/your-feature`
+```bash
+git clone https://github.com/yourorg/organon-noumenon--ontogenetic-morphe.git
+cd organon-noumenon--ontogenetic-morphe
+pip install -e ".[dev]"
+```
 
 ### Code Style
 
-- Use type hints for all function signatures
-- Follow PEP 8 style guidelines
-- Use frozen Pydantic models for domain objects
-- Implement the 4-phase pattern for new subsystems
-
-### Pull Request Process
-
-1. Ensure all tests pass: `pytest tests/`
-2. Ensure type checking passes: `mypy src/`
-3. Update specs if modifying subsystem APIs
-4. Add tests for new functionality
-5. Update CLAUDE.md if adding new subsystems
+- Type hints for all function signatures
+- Frozen Pydantic models for domain objects
+- 4-phase pattern for all subsystems
+- PEP 8 compliance
 
 ### Adding a New Subsystem
 
@@ -149,6 +185,8 @@ Each subsystem has a corresponding specification in `specs/`:
 5. Create corresponding spec in `specs/`
 6. Add comprehensive tests
 7. Add example usage if appropriate
+
+---
 
 ## License
 

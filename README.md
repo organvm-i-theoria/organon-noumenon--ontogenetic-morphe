@@ -1,5 +1,13 @@
 # Organon Noumenon: Ontogenetic Morphe
 
+[![CI](https://github.com/organvm-i-theoria/organon-noumenon--ontogenetic-morphe/actions/workflows/ci.yml/badge.svg)](https://github.com/organvm-i-theoria/organon-noumenon--ontogenetic-morphe/actions/workflows/ci.yml)
+[![Coverage](https://img.shields.io/badge/coverage-pending-lightgrey)](https://github.com/organvm-i-theoria/organon-noumenon--ontogenetic-morphe)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/organvm-i-theoria/organon-noumenon--ontogenetic-morphe/blob/main/LICENSE)
+[![Organ I](https://img.shields.io/badge/Organ-I%20Theoria-8B5CF6)](https://github.com/organvm-i-theoria)
+[![Status](https://img.shields.io/badge/status-active-brightgreen)](https://github.com/organvm-i-theoria/organon-noumenon--ontogenetic-morphe)
+[![Python](https://img.shields.io/badge/lang-Python-informational)](https://github.com/organvm-i-theoria/organon-noumenon--ontogenetic-morphe)
+
+
 [![ORGAN-I: Theory](https://img.shields.io/badge/ORGAN--I-Theory-1a237e?style=flat-square)](https://github.com/organvm-i-theoria)
 [![Python](https://img.shields.io/badge/python-≥3.11-blue?style=flat-square)]()
 [![License](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](LICENSE)

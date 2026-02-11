@@ -242,7 +242,7 @@ The dependency direction is strictly I → II → III: downstream organs may imp
 
 ### Within ORGAN-I (Theory)
 
-- **[recursive-engine](https://github.com/organvm-i-theoria/recursive-engine)** — Recursive computation engine; shares the self-referential processing philosophy but operates at a different abstraction level (computation vs. symbolic metabolism)
+- **[recursive-engine](https://github.com/organvm-i-theoria/recursive-engine--generative-entity)** — Recursive computation engine; shares the self-referential processing philosophy but operates at a different abstraction level (computation vs. symbolic metabolism)
 - **[a-]() repos** — Additional theoretical explorations within the organ
 
 ### Across the Organ System

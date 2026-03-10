@@ -1,0 +1,8 @@
+schema_version: '1.0'
+repo: organon-noumenon--ontogenetic-morphe
+organ: I
+display_name: "Ontogenetic Morphe \u2014 22-subsystem symbolic processing architecture\
+  \ with recursive 4-phase process loops, async message bus, and typed symbolic values"
+delivery:
+- platform: web_app
+  status: not_started
